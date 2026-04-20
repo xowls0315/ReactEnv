@@ -1,0 +1,444 @@
+<link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<style>
+  /* 토큰·기본 타이포는 .tj1-root에만 스코프 (:root/html/body 전역 미사용) */
+  .tj1-root {
+    --tj1-bg: #f4f7f5;
+    --tj1-text: #1f1f1f;
+    --tj1-muted: rgba(31, 31, 31, 0.62);
+    --tj1-line: rgba(31, 31, 31, 0.1);
+    --tj1-point: #8fa38d;
+    --tj1-point-dark: #6f826d;
+    --tj1-surface: #ffffff;
+    --tj1-gradient-text: linear-gradient(
+      120deg,
+      #1f1f1f 0%,
+      #4a5c48 48%,
+      #8fa38d 100%
+    );
+
+    box-sizing: border-box;
+    min-height: 100vh;
+    min-height: 100dvh;
+    width: 100%;
+    margin: 0;
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
+      sans-serif;
+    color: var(--tj1-text);
+    background-color: #f4f7f5;
+    background-image: radial-gradient(
+        880px 500px at 10% 0%,
+        rgba(143, 163, 141, 0.11),
+        transparent 56%
+      ),
+      radial-gradient(
+        720px 420px at 92% 12%,
+        rgba(232, 240, 235, 0.75),
+        transparent 58%
+      ),
+      linear-gradient(180deg, #f8faf9 0%, #f1f5f2 40%, #e6ece8 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .tj1-root *,
+  .tj1-root *::before,
+  .tj1-root *::after {
+    box-sizing: border-box;
+  }
+
+  /* —— 첫 섹션: 히어로(풀 배경 슬라이드 + 콘텐츠) —— */
+  .tj1-hero {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    min-height: 100svh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+    padding-top: max(clamp(28px, 5vw, 72px), env(safe-area-inset-top));
+    padding-bottom: max(clamp(28px, 5vw, 72px), env(safe-area-inset-bottom));
+    overflow: hidden;
+    color: #f7faf8;
+  }
+
+  .tj1-hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .tj1-hero-bg-swiper,
+  .tj1-hero-bg-swiper .swiper-wrapper,
+  .tj1-hero-bg-swiper .swiper-slide {
+    height: 100%;
+    min-height: 100svh;
+    min-height: 100dvh;
+  }
+
+  .tj1-hero-bg-slide {
+    background-color: #1a1f1c;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 42%;
+  }
+
+  .tj1-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+        120deg,
+        rgba(12, 16, 14, 0.72) 0%,
+        rgba(18, 24, 20, 0.38) 44%,
+        rgba(22, 28, 24, 0.2) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(10, 12, 11, 0.15) 0%,
+        rgba(10, 12, 11, 0.55) 72%,
+        rgba(8, 10, 9, 0.82) 100%
+      );
+  }
+
+  .tj1-hero__inner {
+    position: relative;
+    z-index: 2;
+    flex: 0 1 auto;
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding: 0 clamp(20px, 5vw, 48px);
+  }
+
+  .tj1-hero-bg-swiper .swiper-pagination {
+    bottom: clamp(20px, 4vw, 36px) !important;
+    left: 0;
+    right: 0;
+  }
+
+  .tj1-hero-bg-swiper .swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+  }
+
+  .tj1-hero-bg-swiper .swiper-pagination-bullet-active {
+    background: #fff;
+    transform: scale(1.12);
+  }
+
+  .tj1-hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(32px, 5vw, 64px);
+    align-items: end;
+  }
+
+  @media (max-width: 900px) {
+    .tj1-hero__grid {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+  }
+
+  .tj1-hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 14px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(196, 214, 198, 0.98);
+  }
+
+  .tj1-hero__eyebrow::before {
+    content: "";
+    width: 28px;
+    height: 2px;
+    border-radius: 2px;
+    background: rgba(196, 214, 198, 0.95);
+    opacity: 0.95;
+  }
+
+  .tj1-hero__title {
+    margin: 0 0 20px;
+    font-size: clamp(32px, 4.6vw, 52px);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.045em;
+    color: #f4f8f5;
+    text-shadow: 0 2px 28px rgba(0, 0, 0, 0.35);
+  }
+
+  .tj1-hero__lead {
+    margin: 0 0 28px;
+    max-width: 34em;
+    font-size: clamp(15px, 1.35vw, 17px);
+    line-height: 1.75;
+    color: rgba(245, 248, 246, 0.88);
+  }
+
+  .tj1-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .tj1-hero__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 22px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease,
+      background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .tj1-hero__btn--primary {
+    color: #fff;
+    background: var(--tj1-point);
+    box-shadow: 0 14px 36px rgba(143, 163, 141, 0.35);
+  }
+
+  .tj1-hero__btn--primary:hover {
+    background: var(--tj1-point-dark);
+    transform: translateY(-1px);
+  }
+
+  .tj1-hero__btn--ghost {
+    color: var(--tj1-text);
+    background: #fff;
+    border-color: rgba(31, 31, 31, 0.12);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .tj1-hero__btn--ghost:hover {
+    border-color: rgba(143, 163, 141, 0.55);
+    background: #f7faf8;
+    transform: translateY(-1px);
+  }
+
+  .tj1-hero__meta {
+    display: grid;
+    gap: 14px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+  }
+
+  .tj1-hero__meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    font-size: clamp(15px, 1.45vw, 18px);
+    line-height: 1.55;
+    color: rgba(235, 240, 237, 0.88);
+  }
+
+  .tj1-hero__meta-row strong {
+    font-weight: 700;
+    font-size: 1em;
+    color: #fff;
+  }
+
+  /* 우측: 요약 패널 (카드형이 아닌 인포 블록) */
+  .tj1-hero__aside {
+    background: var(--tj1-surface);
+    border: 1px solid var(--tj1-line);
+    border-radius: 18px;
+    padding: 22px 22px 20px;
+    box-shadow: 0 18px 50px rgba(31, 31, 31, 0.06);
+  }
+
+  .tj1-hero__aside-title {
+    margin: 0 0 6px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tj1-point);
+  }
+
+  .tj1-hero__aside-name {
+    margin: 0 0 16px;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #1f1f1f;
+  }
+
+  .tj1-hero__aside-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 10px;
+  }
+
+  .tj1-hero__aside-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--tj1-muted);
+  }
+
+  .tj1-hero__aside-list li::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    margin-top: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--tj1-point);
+    opacity: 0.75;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tj1-hero-bg-swiper .swiper-wrapper {
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .tj1-hero__eyebrow {
+      font-size: 15px;
+    }
+
+    .tj1-hero__title {
+      font-size: calc(clamp(32px, 4.6vw, 52px) + 2px);
+    }
+
+    .tj1-hero__lead {
+      font-size: calc(clamp(15px, 1.35vw, 17px) + 2px);
+    }
+
+    .tj1-hero__btn {
+      font-size: 16px;
+    }
+
+    .tj1-hero__meta-row {
+      font-size: calc(clamp(15px, 1.45vw, 18px) + 2px);
+    }
+
+    .tj1-hero__aside-title {
+      font-size: 14px;
+    }
+
+    .tj1-hero__aside-name {
+      font-size: 22px;
+    }
+
+    .tj1-hero__aside-list li {
+      font-size: 16px;
+    }
+  }
+</style>
+<body>
+  <div class="tj1-root">
+    <main>
+      <section class="tj1-hero" aria-labelledby="tj1-hero-title">
+        <div class="tj1-hero__bg swiper tj1-hero-bg-swiper" aria-hidden="true">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide tj1-hero-bg-slide" style="
+                background-image: url(https://i-web.kr/iweb-TJc005/images/main1-1.jpg);
+              "></div>
+            <div class="swiper-slide tj1-hero-bg-slide" style="
+                background-image: url(https://i-web.kr/iweb-TJc005/images/main1-2.jpg);
+              "></div>
+            <div class="swiper-slide tj1-hero-bg-slide" style="
+                background-image: url(https://i-web.kr/iweb-TJc005/images/main1-3.jpg);
+              "></div>
+            <div class="swiper-slide tj1-hero-bg-slide" style="
+                background-image: url(https://i-web.kr/iweb-TJc005/images/main1-4.jpg);
+              "></div>
+            <div class="swiper-slide tj1-hero-bg-slide" style="
+                background-image: url(https://i-web.kr/iweb-TJc005/images/main1-5.jpg);
+              "></div>
+            <div class="swiper-slide tj1-hero-bg-slide" style="
+                background-image: url(https://i-web.kr/iweb-TJc005/images/main1-6.jpg);
+              "></div>
+          </div>
+          <div class="swiper-pagination tj1-hero-bg-pagination" aria-hidden="true"></div>
+        </div>
+        <div class="tj1-hero__overlay" aria-hidden="true"></div>
+        <div class="tj1-hero__inner">
+          <div class="tj1-hero__grid">
+            <div class="tj1-hero__copy">
+              <p class="tj1-hero__eyebrow">Photo · Film · Print</p>
+              <h1 class="tj1-hero__title" id="tj1-hero-title"> 빛으로 남기는 오늘, <br /> 오래 보는 한 장 </h1>
+              <p class="tj1-hero__lead"> 인물 · 웨딩 · 가족 촬영을 자연광과 스튜디오 조명으로 담습니다. 촬영 후 현장 픽업·택배 인화까지 한 공간에서 마무리할 수 있도록
+                구성했습니다. </p>
+              <div class="tj1-hero__actions">
+                <a class="tj1-hero__btn tj1-hero__btn--primary"
+                  href="javascript:GoSubBoard(&quot;sub02&quot;,&quot;예약·문의&quot;,&quot;&quot;,&quot;table_1776039954&quot;)">촬영
+                  예약</a>
+                <a class="tj1-hero__btn tj1-hero__btn--ghost"
+                  href="javascript:GoSubBoard(&quot;sub02&quot;,&quot;포트폴리오&quot;,&quot;&quot;,&quot;table_1776040826&quot;)">포트폴리오
+                  보기</a>
+              </div>
+              <div class="tj1-hero__meta">
+                <div class="tj1-hero__meta-row">
+                  <strong>운영</strong> 화–일 10:00–19:00 · 월 정기 휴무
+                </div>
+                <div class="tj1-hero__meta-row">
+                  <strong>문의</strong> 02-0000-0000 · 서울 OO구 OO로 00
+                </div>
+              </div>
+            </div>
+            <aside class="tj1-hero__aside" aria-label="촬영 스튜디오 요약">
+              <p class="tj1-hero__aside-title">This week</p>
+              <h2 class="tj1-hero__aside-name">촬영 전 체크</h2>
+              <ul class="tj1-hero__aside-list">
+                <li>의상 2벌까지 무료 보관 · 탈의실 완비</li>
+                <li>가족 세트는 최대 6인 기준 안내</li>
+                <li>원본은 촬영일 기준 14일 내 클라우드 제공</li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const heroBg = new Swiper(".tj1-hero-bg-swiper", {
+      loop: true,
+      speed: 1100,
+      effect: "fade",
+      fadeEffect: { crossFade: true },
+      autoplay: {
+        delay: 5200,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".tj1-hero-bg-swiper .tj1-hero-bg-pagination",
+        clickable: true,
+      },
+      watchSlidesProgress: true,
+    });
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      heroBg.autoplay.stop();
+    }
+  </script>
+</body>
